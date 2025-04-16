@@ -12,7 +12,7 @@ import clsx from "clsx";
 
 interface CardDetailsProps {
   className?: string;
-  href: string;
+  href?: string;
   avatarSrc: string;
   alt?: string;
   title: string;
@@ -29,8 +29,8 @@ export default function CardDetails({
   return (
     <>
       <Dialog>
-        <DialogTrigger className="curson-pointer" asChild>
-          <Card className={clsx("curson-pointer", className)}>
+        <DialogTrigger asChild>
+          <Card className={clsx("cursor-pointer", className)}>
             <CardHeader className="flex items-center">
               <Avatar className="w-auto h-auto max-w-[100px]">
                 <AvatarImage src={avatarSrc} alt={alt} />
@@ -45,7 +45,7 @@ export default function CardDetails({
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
