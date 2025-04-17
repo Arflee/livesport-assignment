@@ -3,7 +3,7 @@ import CardDetails from "./card-details";
 import PaginationClient from "./pagination-client";
 import { ScrollArea } from "./scroll-area";
 import { fetchEntities } from "@/lib/utils";
-import { Label } from "./label";
+import ErrorMessage from "./errorMessage";
 
 export default async function CardListView({
   query,
@@ -20,9 +20,7 @@ export default async function CardListView({
 
   if (!Array.isArray(jsonData)) {
     return (
-      <Label className="flex w-full justify-center">
-        {jsonData.errorMessage}
-      </Label>
+      <ErrorMessage errorMessage={jsonData.errorMessage}/>
     )
   }
 

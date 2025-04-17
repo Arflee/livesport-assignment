@@ -37,7 +37,7 @@ export default function PaginationClient({
           </PaginationItem>
         }
         {Array.from({ length: totalPages }, (_, index) => (
-          <PaginationItem key={`${index}`}>
+          <PaginationItem key={index}>
             <PaginationLink
               href={createPageURL(index + 1)}
               isActive={currentPage === index + 1}

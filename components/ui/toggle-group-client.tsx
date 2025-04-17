@@ -4,6 +4,7 @@ import { EntityType } from "@/lib/entity";
 import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
 import { Label } from "./label";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { pascalToSentence } from "@/lib/utils";
 
 export default function ToggleGroupClient() {
   const onToggleChange = (values: string[]) => {
@@ -11,7 +12,7 @@ export default function ToggleGroupClient() {
 
     params.set("page", "1");
     params.delete("filter");
-    
+
     values.forEach((value) => params.append("filter", value));
 
     replace(`${pathname}?${params.toString()}`);
@@ -30,34 +31,19 @@ export default function ToggleGroupClient() {
       onValueChange={onToggleChange}
       defaultValue={searchParams.getAll("filter")}
     >
-      <ToggleGroupItem
-        value={EntityType.Competition.toString()}
-        aria-label="Toggle leagues"
-        className="whitespace-normal break-words px-4 py-2"
-      >
-        <Label>Leagues</Label>
-      </ToggleGroupItem>
-      <ToggleGroupItem
-        value={EntityType.Team.toString()}
-        aria-label="Toggle teams"
-        className="whitespace-normal break-words px-4 py-2"
-      >
-        <Label>Teams</Label>
-      </ToggleGroupItem>
-      <ToggleGroupItem
-        value={EntityType.IndividualPlayer.toString()}
-        aria-label="Toggle individual players"
-        className="whitespace-normal break-words px-4 py-2"
-      >
-        <Label>Individual players</Label>
-      </ToggleGroupItem>
-      <ToggleGroupItem
-        value={EntityType.TeamPlayer.toString()}
-        aria-label="Toggle team players"
-        className="whitespace-normal break-words px-4 py-2"
-      >
-        <Label>Team players</Label>
-      </ToggleGroupItem>
+      {
+        Object.keys(EntityType).filter((key) => isNaN(Number(key))).map((value, index) => {
+          return(
+            <ToggleGroupItem
+            key={value}
+            value={(index + 1).toString()}
+            aria-label={`Toggle ${pascalToSentence(value)}`}
+            className="whitespace-normal break-words px-4 py-2"
+          >
+            <Label>{pascalToSentence(value)}</Label>
+          </ToggleGroupItem>
+        )})
+      }
     </ToggleGroup>
   );
 }
