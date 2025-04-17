@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Avatar, AvatarImage } from "./avatar";
 import {
   Dialog,
   DialogContent,
@@ -9,33 +9,37 @@ import {
   DialogTrigger,
 } from "./dialog";
 import clsx from "clsx";
+import { Suspense } from "react";
 
 interface CardDetailsProps {
   className?: string;
   href?: string;
   avatarSrc: string;
-  alt?: string;
+  alt: string;
   title: string;
   description: string;
 }
 
-export default function CardDetails({
+export default async function CardDetails({
   className,
   avatarSrc,
   alt,
   title,
   description,
 }: CardDetailsProps) {
+
   return (
     <>
       <Dialog>
         <DialogTrigger asChild>
           <Card className={clsx("cursor-pointer", className)}>
             <CardHeader className="flex items-center">
+              <Suspense fallback={<p>loading...</p>}>
+
               <Avatar className="w-auto h-auto max-w-[100px]">
-                <AvatarImage src={avatarSrc} alt={alt} />
-                <AvatarFallback>{alt}</AvatarFallback>
+                <AvatarImage src={avatarSrc} alt={alt} width={100} height={100}/>
               </Avatar>
+              </Suspense>
               <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent>{description}</CardContent>

@@ -1,26 +1,26 @@
-import Entity from "@/lib/entity";
 import CardDetails from "./card-details";
+import PaginationClient from "./pagination-client";
 import { ScrollArea } from "./scroll-area";
+import { fetchEntities } from "@/lib/utils";
 
-export default async function ListView({
+export default async function CardListView({
   query,
   filter,
   currentPage,
-  entitiesPerPage
 }: {
   query: string;
   filter: string;
   currentPage: number;
-  entitiesPerPage: number;
 }) {
-  const response = await fetch(
-    "https://s.livesport.services/api/v2/search?type-ids=2,3&project-type-id=1&project-id=602&lang-id=1&q=dj&sport-ids=1,2,3,4,5,6,7,8,9"
-  );
+  const entitiesPerPage = 5;
 
-  const jsonData = (await response.json()) as Entity[];
+  const jsonData = await fetchEntities(query);
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
   const filteredByTypeData = filter
     ? jsonData.filter((entity) => entity.type.id === +filter)
     : jsonData;
+
   const filteredByName = query
     ? filteredByTypeData.filter((entity) =>
         entity.name.toLowerCase().includes(query.toLowerCase())
@@ -28,9 +28,13 @@ export default async function ListView({
     : filteredByTypeData;
 
   const paginatedData = filteredByName.slice(
-      (currentPage - 1) * entitiesPerPage,
-      currentPage * entitiesPerPage
-    );
+    (currentPage - 1) * entitiesPerPage,
+    currentPage * entitiesPerPage
+  );
+
+  const totalPages = filteredByName.length
+    ? Math.ceil(filteredByName.length / entitiesPerPage)
+    : 0;
   return (
     <>
       <ScrollArea className="flex justify-center w-3xl relative rounded-md">
@@ -45,10 +49,12 @@ export default async function ListView({
               title={entity.name}
               description={entity.sport.name}
               className="mb-2"
+              alt="Entity image"
             />
           );
         })}
       </ScrollArea>
+      <PaginationClient currentPage={currentPage} totalPages={totalPages} />
     </>
   );
 }
