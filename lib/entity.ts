@@ -1,4 +1,11 @@
-export default interface Player {
+export enum EntityType {
+  Competition = 1,
+  Team = 2,
+  IndividualPlayer = 3,
+  TeamPlayer = 4
+}
+
+export default interface Entity {
   id: string;
   url: string;
   gender: {
