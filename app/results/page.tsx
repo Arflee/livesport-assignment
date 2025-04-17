@@ -26,20 +26,26 @@ export default async function Home(props: {
 
   return (
     <div className="mx-auto max-w-[80%] space-y-2">
-      <Input className="mt-2 w-full flex justify-center h-10" placeholder="Search" />
+      <Input
+        className="mt-2 w-full flex justify-center h-10"
+        placeholder="Search"
+        id="searchField"
+      />
       <div className="space-y-2">
         <ToggleGroupClient />
-          {query ? (
-            <Suspense fallback={<CardListViewSkeleton/>}>
-              <CardListView
-                query={query}
-                filters={filtersArray}
-                currentPage={currentPage}
-              />
-            </Suspense>
-          ) : (
-            <Label className="mt-[20%] flex w-full justify-center">Start by typing the name of your favorite team or player above!</Label>
-          )}
+        {query ? (
+          <Suspense fallback={<CardListViewSkeleton />}>
+            <CardListView
+              query={query}
+              filters={filtersArray}
+              currentPage={currentPage}
+            />
+          </Suspense>
+        ) : (
+          <Label className="mt-[20%] flex w-full justify-center">
+            Start by typing the name of your favorite team or player above!
+          </Label>
+        )}
       </div>
     </div>
   );

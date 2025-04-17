@@ -21,7 +21,7 @@ export default function ToggleGroupClient() {
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
-
+  const queryLength = searchParams.get("query")?.length || 0;
   return (
     <ToggleGroup
       type="multiple"
@@ -30,6 +30,7 @@ export default function ToggleGroupClient() {
       className="w-full flex justify-center"
       onValueChange={onToggleChange}
       defaultValue={searchParams.getAll("filter")}
+      disabled={queryLength <= 1}
     >
       {
         Object.keys(EntityType).filter((key) => isNaN(Number(key))).map((value, index) => {

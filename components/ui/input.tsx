@@ -42,7 +42,6 @@ export default function Input({
         )}
         placeholder={props.placeholder}
         defaultValue={searchParams.get("query")?.toString()}
-        id="searchField"
         {...props}
       />
     </div>
