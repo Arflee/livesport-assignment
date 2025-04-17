@@ -35,7 +35,6 @@ export default async function CardDetails({
           <Card className={clsx("cursor-pointer", className)}>
             <CardHeader className="flex items-center">
               <Suspense fallback={<p>loading...</p>}>
-
               <Avatar className="w-auto h-auto max-w-[100px]">
                 <AvatarImage src={avatarSrc} alt={alt} width={100} height={100}/>
               </Avatar>
@@ -45,7 +44,7 @@ export default async function CardDetails({
             <CardContent>{description}</CardContent>
           </Card>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>

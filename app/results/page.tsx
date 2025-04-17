@@ -23,11 +23,10 @@ export default async function Home(props: {
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <div className="flex flex-col *:mx-auto space-y-2">
-      <Input className="mx-auto" placeholder="Search" id="searchField" />
-      <div className="mx-auto *:mx-auto space-y-2">
+    <div className="mx-auto max-w-[80%] space-y-2">
+      <Input className="mt-2 w-full flex justify-center h-10" placeholder="Search" id="searchField" />
+      <div className="space-y-2">
         <ToggleGroupClient />
-        <div className="flex flex-col justify-around items-center">
           {query ? (
             <Suspense fallback={<CardListViewSkeleton/>}>
               <CardListView
@@ -37,9 +36,8 @@ export default async function Home(props: {
               />
             </Suspense>
           ) : (
-            <Label>Start by typing you favourite team name above!</Label>
+            <Label className="mb-2 flex w-full justify-center">Start by typing you favourite team name above!</Label>
           )}
-        </div>
       </div>
     </div>
   );

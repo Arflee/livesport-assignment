@@ -28,7 +28,7 @@ export default function ToggleGroupClient() {
       type="single"
       variant="outline"
       size="lg"
-      className="*:w-25 m-auto flex flex-wrap justify-center"
+      className="w-full flex justify-center"
       onValueChange={onToggleChange}
       defaultValue={searchParams.get("filter")?.toString()}
     >

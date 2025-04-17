@@ -15,7 +15,7 @@ export default async function CardListView({
   const entitiesPerPage = 5;
 
   const jsonData = await fetchEntities(query);
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  //await new Promise(resolve => setTimeout(resolve, 1000));
 
   const filteredByTypeData = filter
     ? jsonData.filter((entity) => entity.type.id === +filter)
@@ -37,7 +37,7 @@ export default async function CardListView({
     : 0;
   return (
     <>
-      <ScrollArea className="flex justify-center w-3xl relative rounded-md">
+      <ScrollArea className="flex justify-center max-w-[100%] rounded-md">
         {paginatedData.map((entity) => {
           const avatarSrc = entity.images?.[0]?.path
             ? `https://www.livesport.cz/res/image/data/${entity.images[0].path}`
@@ -48,7 +48,7 @@ export default async function CardListView({
               key={entity.id}
               title={entity.name}
               description={entity.sport.name}
-              className="mb-2"
+              className="mb-2 flex w-full justify-center"
               alt="Entity image"
             />
           );
