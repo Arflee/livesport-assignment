@@ -1,4 +1,4 @@
-import Entity from "@/lib/entity";
+import Entity, { EntityType } from "@/lib/entity";
 import CardDetails from "./card-details";
 import { ScrollArea } from "./scroll-area";
 import { fetchEntities } from "@/lib/utils";
@@ -60,6 +60,9 @@ export default async function CardListView({
                 const imagePath = entity.images?.[0]?.path;
                 const countryPath = entity.defaultCountry.images[0]?.path;
                 const countryName = entity.defaultCountry.name;
+                const gender = entity.gender.name;
+                const teamName = entity.teams?.[0]?.name || "Individual player";
+                const isPlayer = entity.type.id === EntityType.IndividualPlayer || entity.type.id === EntityType.TeamPlayer;
                 const avatarSrc = imagePath
                   ? `https://www.livesport.cz/res/image/data/${imagePath}`
                   : "/avatar-placeholder.jpg";
@@ -71,6 +74,10 @@ export default async function CardListView({
                     avatarSrc={avatarSrc}
                     countryLogoSrc={countryLogoSrc}
                     countryName={countryName}
+                    gender={gender}
+                    teamName={teamName}
+                    isPlayer={isPlayer}
+                    sportName={sportName}
                     key={entity.id}
                     title={entity.name}
                     className="w-full justify-center hover:bg-accent"

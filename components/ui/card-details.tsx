@@ -20,6 +20,10 @@ interface CardDetailsProps {
   title: string;
   countryLogoSrc: string;
   countryName: string;
+  gender: string;
+  teamName: string;
+  isPlayer: boolean;
+  sportName: string;
 }
 
 export default async function CardDetails({
@@ -28,7 +32,11 @@ export default async function CardDetails({
   alt,
   title,
   countryLogoSrc,
-  countryName
+  countryName,
+  gender,
+  teamName,
+  isPlayer,
+  sportName,
 }: CardDetailsProps) {
   return (
     <>
@@ -50,29 +58,65 @@ export default async function CardDetails({
           </Card>
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle className="flex items-center space-x-2">
-              <Avatar className="w-auto h-auto">
-                <AvatarImage
-                  className="w-[100px] h-[100px]"
-                  src={avatarSrc}
-                  alt={alt}
-                  width={100}
-                  height={100}
-                />
-              </Avatar>
-              <Label className="text-2xl">{title}</Label>
-            </DialogTitle>
-            <DialogDescription>
-              <Label>{countryName}</Label>
-              <Image
+          <DialogHeader className="flex items-center space-x-2">
+            <Avatar className="w-auto h-auto">
+              <AvatarImage
                 className="w-[100px] h-[100px]"
-                src={countryLogoSrc}
-                alt="Country flag"
+                src={avatarSrc}
+                alt={alt}
                 width={100}
                 height={100}
               />
-            </DialogDescription>
+            </Avatar>
+            <DialogTitle>{title}</DialogTitle>
+            <table className="table-fixed w-full">
+              <thead className="max-w-[100px]">
+                <tr>
+                  <th>
+                    <Image
+                      className="w-[100px] h-[100px]"
+                      src={countryLogoSrc}
+                      alt="Country flag"
+                      width={100}
+                      height={100}
+                    />
+                  </th>
+                  <th>
+                    <Label>Gender</Label>
+                  </th>
+                  {isPlayer && (
+                    <>
+                      <th>
+                        <Label>Team</Label>
+                      </th>
+                      <th>
+                        <Label>Sport name</Label>
+                      </th>
+                    </>
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <DialogDescription>{countryName}</DialogDescription>
+                  </td>
+                  <td>
+                    <DialogDescription>{gender}</DialogDescription>
+                  </td>
+                  {isPlayer && (
+                    <>
+                      <td>
+                        <DialogDescription>{teamName}</DialogDescription>
+                      </td>
+                      <td>
+                        <DialogDescription>{sportName}</DialogDescription>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tbody>
+            </table>
           </DialogHeader>
         </DialogContent>
       </Dialog>
