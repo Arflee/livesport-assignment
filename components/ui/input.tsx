@@ -9,6 +9,9 @@ export default function Input({
   className,
   ...props
 }: React.HTMLProps<HTMLInputElement>) {
+
+  const debounceDelay = 220;
+
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
@@ -18,11 +21,12 @@ export default function Input({
       params.delete("query");
     }
     replace(`${pathname}?${params.toString()}`);
-  }, 300);
+  }, debounceDelay);
 
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
+  
   return (
     <div className="relative w-full max-w-md mx-auto">
       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -38,6 +42,7 @@ export default function Input({
         )}
         placeholder={props.placeholder}
         defaultValue={searchParams.get("query")?.toString()}
+        id="searchField"
         {...props}
       />
     </div>

@@ -27,7 +27,6 @@ export default async function CardDetails({
   title,
   description,
 }: CardDetailsProps) {
-
   return (
     <>
       <Dialog>
@@ -35,9 +34,15 @@ export default async function CardDetails({
           <Card className={clsx("cursor-pointer", className)}>
             <CardHeader className="flex items-center">
               <Suspense fallback={<p>loading...</p>}>
-              <Avatar className="w-auto h-auto max-w-[100px]">
-                <AvatarImage src={avatarSrc} alt={alt} width={100} height={100}/>
-              </Avatar>
+                <Avatar className="w-auto h-auto">
+                  <AvatarImage
+                    className="w-[100px] h-[100px]"
+                    src={avatarSrc}
+                    alt={alt}
+                    width={100}
+                    height={100}
+                  />
+                </Avatar>
               </Suspense>
               <CardTitle>{title}</CardTitle>
             </CardHeader>
@@ -46,11 +51,19 @@ export default async function CardDetails({
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
+            <DialogTitle>
+              <Avatar className="w-auto h-auto">
+                <AvatarImage
+                  className="w-[100px] h-[100px]"
+                  src={avatarSrc}
+                  alt={alt}
+                  width={100}
+                  height={100}
+                />
+              </Avatar>
+              {title}
+            </DialogTitle>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>

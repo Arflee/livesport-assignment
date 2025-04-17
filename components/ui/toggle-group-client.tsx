@@ -6,15 +6,13 @@ import { Label } from "./label";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function ToggleGroupClient() {
-  const onToggleChange = (value: string) => {
+  const onToggleChange = (values: string[]) => {
     const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
 
-    if (value) {
-      params.set("filter", value);
-    } else {
-      params.delete("filter");
-    }
+    params.set("page", "1");
+    params.delete("filter");
+    
+    values.forEach((value) => params.append("filter", value));
 
     replace(`${pathname}?${params.toString()}`);
   };
@@ -25,12 +23,12 @@ export default function ToggleGroupClient() {
 
   return (
     <ToggleGroup
-      type="single"
+      type="multiple"
       variant="outline"
       size="lg"
       className="w-full flex justify-center"
       onValueChange={onToggleChange}
-      defaultValue={searchParams.get("filter")?.toString()}
+      defaultValue={searchParams.getAll("filter")}
     >
       <ToggleGroupItem
         value={EntityType.Competition.toString()}

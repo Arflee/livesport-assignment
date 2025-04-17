@@ -1,25 +1,39 @@
+import Entity from "@/lib/entity";
 import CardDetails from "./card-details";
 import PaginationClient from "./pagination-client";
 import { ScrollArea } from "./scroll-area";
 import { fetchEntities } from "@/lib/utils";
+import { Label } from "./label";
 
 export default async function CardListView({
   query,
-  filter,
+  filters,
   currentPage,
 }: {
   query: string;
-  filter: string;
+  filters: string[];
   currentPage: number;
 }) {
   const entitiesPerPage = 5;
 
   const jsonData = await fetchEntities(query);
-  //await new Promise(resolve => setTimeout(resolve, 1000));
 
-  const filteredByTypeData = filter
-    ? jsonData.filter((entity) => entity.type.id === +filter)
-    : jsonData;
+  if (!Array.isArray(jsonData)) {
+    return (
+      <Label className="flex w-full justify-center">
+        {jsonData.errorMessage}
+      </Label>
+    )
+  }
+
+  const validJson = jsonData as Entity[];
+  let filteredByTypeData = [] as Entity[];
+
+  filters.forEach(filter => {
+    filteredByTypeData.push(...validJson.filter(entity => entity.type.id === +filter))
+  });
+
+  filteredByTypeData = filteredByTypeData.length || filters.length ? filteredByTypeData : validJson;
 
   const filteredByName = query
     ? filteredByTypeData.filter((entity) =>
@@ -48,7 +62,7 @@ export default async function CardListView({
               key={entity.id}
               title={entity.name}
               description={entity.sport.name}
-              className="mb-2 flex w-full justify-center"
+              className="mb-2 flex w-full justify-center hover:bg-accent"
               alt="Entity image"
             />
           );
