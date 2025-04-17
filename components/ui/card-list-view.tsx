@@ -51,15 +51,15 @@ export default async function CardListView({
 
   return (
     <>
-      <ScrollArea className="flex justify-center max-w-[100%] rounded-md">
+      <ScrollArea className="">
         {Object.entries(bySport).map(([sportName, entities]) => (
           <div key={sportName} className="mb-6">
             <h2 className="text-xl font-semibold mb-2">{sportName}</h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid xl:grid-cols-3 sm:max-xl:grid-cols-2 gap-2">
               {entities.map((entity) => {
                 const imagePath = entity.images?.[0]?.path;
                 const countryPath = entity.defaultCountry.images[0]?.path;
-
+                const countryName = entity.defaultCountry.name;
                 const avatarSrc = imagePath
                   ? `https://www.livesport.cz/res/image/data/${imagePath}`
                   : "/avatar-placeholder.jpg";
@@ -70,9 +70,10 @@ export default async function CardListView({
                   <CardDetails
                     avatarSrc={avatarSrc}
                     countryLogoSrc={countryLogoSrc}
+                    countryName={countryName}
                     key={entity.id}
                     title={entity.name}
-                    className="mb-2 flex w-full justify-center hover:bg-accent"
+                    className="w-full justify-center hover:bg-accent"
                     alt="Entity image"
                   />
                 );

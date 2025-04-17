@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { Card, CardHeader, CardTitle } from "./card";
 import { Avatar, AvatarImage } from "./avatar";
 import {
   Dialog,
@@ -19,6 +19,7 @@ interface CardDetailsProps {
   alt: string;
   title: string;
   countryLogoSrc: string;
+  countryName: string;
 }
 
 export default async function CardDetails({
@@ -27,6 +28,7 @@ export default async function CardDetails({
   alt,
   title,
   countryLogoSrc,
+  countryName
 }: CardDetailsProps) {
   return (
     <>
@@ -36,7 +38,7 @@ export default async function CardDetails({
             <CardHeader className="flex items-center space-x-4">
               <Avatar className="w-auto h-auto">
                 <AvatarImage
-                  className="w-[100px] h-[100px]"
+                  className="w-[75px] h-[75px]"
                   src={avatarSrc}
                   alt={alt}
                   width={100}
@@ -62,6 +64,7 @@ export default async function CardDetails({
               <Label className="text-2xl">{title}</Label>
             </DialogTitle>
             <DialogDescription>
+              <Label>{countryName}</Label>
               <Image
                 className="w-[100px] h-[100px]"
                 src={countryLogoSrc}
