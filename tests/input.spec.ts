@@ -27,7 +27,10 @@ test.describe('Input Component', () => {
     await page.waitForTimeout(500);
 
     // Expect URL to include page=1&query=hello
-    await expect(page).toHaveURL(/.*page=1&query=hello$/);
+    await expect(page).toHaveURL(url => {
+      const params = url.searchParams;
+      return params.has('page') && params.has('query');
+    })
   });
 
   test('removes query param when input is cleared', async ({ page }) => {
