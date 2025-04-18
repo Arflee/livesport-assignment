@@ -10,7 +10,6 @@ import {
 } from "./dialog";
 import clsx from "clsx";
 import Image from "next/image";
-import { Label } from "./label";
 
 interface CardDetailsProps {
   className?: string;
@@ -61,7 +60,7 @@ export default async function CardDetails({
           <DialogHeader className="flex items-center space-x-2">
             <Avatar className="w-auto h-auto">
               <AvatarImage
-                className="w-[100px] h-[100px]"
+                className="w-[100px]"
                 src={avatarSrc}
                 alt={alt}
                 width={100}
@@ -69,55 +68,27 @@ export default async function CardDetails({
               />
             </Avatar>
             <DialogTitle>{title}</DialogTitle>
-            <table className="table-fixed w-full">
-              <thead className="max-w-[100px]">
-                <tr>
-                  <th>
-                    <Image
-                      className="w-[100px] h-[100px]"
-                      src={countryLogoSrc}
-                      alt="Country flag"
-                      width={100}
-                      height={100}
-                    />
-                  </th>
-                  <th>
-                    <Label>Gender</Label>
-                  </th>
-                  {isPlayer && (
-                    <>
-                      <th>
-                        <Label>Team</Label>
-                      </th>
-                      <th>
-                        <Label>Sport name</Label>
-                      </th>
-                    </>
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <DialogDescription>{countryName}</DialogDescription>
-                  </td>
-                  <td>
-                    <DialogDescription>{gender}</DialogDescription>
-                  </td>
-                  {isPlayer && (
-                    <>
-                      <td>
-                        <DialogDescription>{teamName}</DialogDescription>
-                      </td>
-                      <td>
-                        <DialogDescription>{sportName}</DialogDescription>
-                      </td>
-                    </>
-                  )}
-                </tr>
-              </tbody>
-            </table>
           </DialogHeader>
+          <div className="w-full grid grid-cols-1 *:grid *:grid-cols-4 gap-2 *:text-center *:justify-center *:items-center">
+            <div className="*:font-medium *:text-accent-foreground">
+              <Image
+                className="w-[100px] h-[100px]"
+                src={countryLogoSrc}
+                alt="Country flag"
+                width={100}
+                height={100}
+              />
+              <DialogDescription>Gender</DialogDescription>
+              {isPlayer && <DialogDescription>Team</DialogDescription>}
+              <DialogDescription>Sport name</DialogDescription>
+            </div>
+            <div>
+              <DialogDescription>{countryName}</DialogDescription>
+              <DialogDescription>{gender}</DialogDescription>
+              {isPlayer && <DialogDescription>{teamName}</DialogDescription>}
+              <DialogDescription>{sportName}</DialogDescription>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </>
