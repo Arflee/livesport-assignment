@@ -69,10 +69,15 @@ export default async function CardDetails({
             </Avatar>
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
-          <div className="w-full grid grid-cols-1 *:grid *:grid-cols-4 gap-2 *:text-center *:justify-center *:items-center">
+          <div
+            className={clsx(
+              "w-full grid grid-cols-1 *:grid gap-2 *:text-center *:justify-center *:items-center",
+              isPlayer ? "*:grid-cols-4" : "*:grid-cols-3"
+            )}
+          >
             <div className="*:font-medium *:text-accent-foreground">
               <Image
-                className="w-[100px] h-[100px]"
+                className="w-[100px] mx-auto"
                 src={countryLogoSrc}
                 alt="Country flag"
                 width={100}
