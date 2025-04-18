@@ -48,11 +48,11 @@ export default async function CardListView({
       acc[key].push(ent);
       return acc;
     }, {});
-
   return (
     <>
-      <ScrollArea className="">
-        {Object.entries(bySport).map(([sportName, entities]) => (
+      <ScrollArea>
+        {Object.entries(bySport).map(([sportName, entities]) => {
+          return(
           <div key={sportName} className="mb-6">
             <h2 className="text-xl font-semibold mb-2">{sportName}</h2>
             <div className="grid xl:grid-cols-3 sm:max-xl:grid-cols-2 gap-2">
@@ -87,7 +87,7 @@ export default async function CardListView({
               })}
             </div>
           </div>
-        ))}
+        )})}
       </ScrollArea>
     </>
   );

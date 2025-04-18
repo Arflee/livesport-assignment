@@ -40,8 +40,8 @@ export default async function CardDetails({
   return (
     <>
       <Dialog>
-        <DialogTrigger asChild>
-          <Card className={clsx("cursor-pointer", className)}>
+        <DialogTrigger  asChild>
+          <Card tabIndex={0} className={clsx("cursor-pointer", className)}>
             <CardHeader className="flex items-center space-x-4">
               <Avatar className="w-auto h-auto">
                 <AvatarImage
@@ -57,7 +57,7 @@ export default async function CardDetails({
           </Card>
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader className="flex items-center space-x-2">
+          <DialogHeader className="flex items-center">
             <Avatar className="w-auto h-auto">
               <AvatarImage
                 className="w-[100px]"
